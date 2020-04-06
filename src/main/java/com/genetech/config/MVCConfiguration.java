@@ -8,10 +8,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 public class MVCConfiguration extends WebMvcConfigurationSupport {
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-
-        registry.addViewController("/").setViewName("forward:/page/template/index/index.html");
+        //template/index/index---------不行
+        //forward:/template/index/index.html----默认是static目录下-------不行
+        registry.addViewController("/").setViewName("forward:/template/index/index");
 
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
 
