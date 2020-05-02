@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+		<!-- <base href="http://localhost:8099/plasmid/" /> -->
+		<base href="http://www.brics.ac.cn/plasmid/" />
+		<link rel="stylesheet" type="text/css" href="assets/layui/css/layui.css"/>
+		<link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.css" />
+		<!-- <link rel="stylesheet" type="text/css" href="css/common.css"/> 
+		<link rel="stylesheet" type="text/css" href="css/jump.css"/>-->
+		<link rel="stylesheet" type="text/css" href="assets/animate.min.css"/>
+		<script type="text/javascript">
+			document.write('<link rel="stylesheet" type="text/css" href="css/common.css?v='+Math.random()+'" />')
+			document.write('<link rel="stylesheet" type="text/css" href="css/jump.css?v='+Math.random()+'" />')
+		</script>
+		<title></title>
+		<style type="text/css">
+			/* @media (min-width:767px) {
+				#donate_carousel{
+					height: 30px;
+					background-clip: content-box;
+					margin-top: 25px;
+					margin-bottom: 25px;
+					overflow: hidden;
+					background-color: #CAEBFB;
+				}
+				
+				#donate_carousel a{
+					height: 30px;
+					line-height: 30px;
+				}
+			} */
+			@media (max-width:768px) {
+				/* #donate_carousel{
+					height: 40px;
+					background-clip: content-box;
+					margin-top: 25px;
+					margin-bottom: 25px;
+					overflow: hidden;
+					background-color: #CAEBFB;
+				} */
+				/* #donate_carousel a{
+					height: 40px;
+					line-height: 40px;
+				} */
+			}
+			
+			 #donate_carousel{
+				height: 40px;
+				background-clip: content-box;
+				margin-top: 25px;
+				margin-bottom: 25px;
+				overflow: hidden;
+				background-color: #CAEBFB;
+			}
+			#donate_carousel a{
+				height: 40px;
+				line-height: 40px;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+				display: block;
+			}
+			.product {
+			    background-color: #e7eef6 !important;
+			    position: relative;
+			    text-align: center;
+			    border: 0;
+			    margin-top: 50px;
+			}
+			
+			.product-01 .product-more .btn-primary {
+			    background-color: #2dbaab;
+			    border-color: #2dbaab;
+			}
+			
+			.product-02 .product-more .btn-primary {
+			    background-color: #ea894e;
+			    border-color: #ea894e;
+			}
+			.product .product-more .btn {
+			    padding-left: 20px;
+			    padding-right: 20px;
+			}
+			.animate-item {
+			    position: relative;
+			    overflow: hidden;
+			}
+			.wrap-animate-item {
+			    position: relative;
+			    height: 100%;
+			    padding: 4% 0;
+			}
+			.ans-item-box .ans-title-box {
+			    margin-bottom: 8%;
+			}
+			.ans-item-box .ans-content-box {
+			    position: relative;
+			    width: 100%;
+			}
+			.ans-link-text {
+			    margin-bottom: 0;
+			    font-size: 16px;
+			    color: #5e7086;
+			}
+			.ans-center {
+			    left: 1%; 
+			    width: 14%; 
+			    margin-top: 20%; 
+			}
+			.ans-title {
+			    height: 50px;
+			    margin: 5% auto 12%;
+			    font-size: 24px;
+			    color: #666;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- 导航条 -->
+		<header id="hd"></header>
+		
+		<!-- banner图 -->
+		<div class="banner">
+			<img style="width: 100%;" src="img/index/index-banner.jpg" >
+		</div>
+		<!-- 滚动新闻 -->
+		<div class="container-fluid">
+			<div class="row">
+				<div id="donate_carousel" class="col-xs-12">
+					<ul class="donate_bar">
+						<li><a href="template/news/sars-cov.html"> 【新闻动态】上海交通大学陶生策课题组无偿提供SARS-CoV 2全套编码基因的原核表达克隆 </a> </li>
+						<li><a href="template/news/dynamic-news.html"> 【新闻动态】质粒共享平台推出增值服务 </a> </li>
+					</ul>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div class="container-fluid" style="position:relative;">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+					<div class="product product-01 well" style="margin-top: 0;">
+						<h3>质粒信息</h3>
+						<p>种类丰富的质粒载体，开放共享的资源平台</p>
+						<div class="product-more">
+							<a href="template/plasmid/plasmid_list.html" class="btn btn-primary btn-sm">了解更多</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6">
+					<div class="product product-02 well" style="margin-top: 0;">
+						<h3>质粒保藏</h3>
+						<p>安全的保藏体系，专业的资源管理</p>
+						<div class="product-more">
+							<a href="template/article/storage_info.html" class="btn btn-primary btn-sm">了解更多</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="row" style="margin:0 auto;">
+				<!-- <div class="col-xs-12 text-center" style="margin-bottom: 50px;">
+					<p class="cloud-title big-title">质粒信息</p>
+					<p class="cloud-text big-text">汇集各类质粒载体资源<br>分类完善、搜索简便，为您提供更便捷的基因工具获取渠道</p>
+					<div class="animated bounce infinite" style="margin-top:20px;">
+					  <a href="../plasmid/plasmid_list.html" class="btn btn-primary btn-lg" data-animate="enterBounce">点击进入</a>
+					</div>
+				</div> -->
+				<div class="col-xs-12 ">
+					<section class="col-xs-12 col-sm-5 text-center animate-active animated fadeInLeft">
+						<p class="ans-title">整合汇集各类质粒载体材料</p>
+						<img style="max-width: 100%;" src="img/index/index-pic_03.png">
+					</section>
+					<section class="col-xs-12 col-sm-2 text-center animate-active animated fadeIn">
+						<div class="ans-link-box">
+							<p class="ans-link-text">搜索质粒</p>
+							<img src="img/index/index-pic_08.png">
+						</div>
+					</section>
+					<section class="col-xs-12 col-sm-5 text-center animate-active animated fadeInRight">
+						<p class="ans-title">获得适合的基因操作工具</p>
+						<img style="max-width: 100%;" src="img/index/index-pic_05.png">
+					</section>
+				</div>
+				<!-- <div class="col-xs-12 text-center" style="margin-bottom: 50px;">
+					<p class="cloud-title big-title">CCRB-质粒保藏</p>
+					<div class="animated bounce infinite" style="margin-top:20px;">
+					  <a href="../plasmid/plasmid_list.html" class="btn btn-primary btn-lg" data-animate="enterBounce">点击进入</a>
+					</div>
+				</div>
+				<div class="col-xs-12 text-center">
+					<div class="material-center-img animate-active animated fadeIn">
+						<img style="max-width: 100%;" src="../../img/index/material-index-center.png">
+					</div>
+				</div> -->
+			</div>
+		</div>
+		<!-- 底部栏 -->
+		<div id="ft"></div>
+		<!--  -->
+		<div class="blank"></div>
+		<div id="bottom-nav"></div>
+	</body>
+	<script src="assets/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="assets/bootstrap/js/bootstrap.js"></script>
+	<script src="assets/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		document.write('<script src="js/common/base.js?v='+new Date().getTime()+'" type="text/javascript" charset="utf-8"><\/script>');
+		document.write('<script src="js/util/jump.js?v='+new Date().getTime()+'" type="text/javascript" charset="utf-8"><\/script>');
+		document.write('<script src="js/common/common_methods.js?v='+new Date().getTime()+'" type="text/javascript" charset="utf-8"><\/script>');
+		document.write('<script src="js/common/parts.js?v='+new Date().getTime()+'" type="text/javascript" charset="utf-8"><\/script>');
+	</script>
+	<script type="text/javascript">
+		$.fn.extend({
+		    Scroll: function(opt, callback) {
+		        //参数初始化
+		        if (!opt) var opt = {};
+		        var _this = this.eq(0).find("ul:first");
+		        var lineH = _this.find("li:first").height(), //获取行高
+		            line = opt.line ? parseInt(opt.line, 10) : parseInt(this.height() / lineH, 10), //每次滚动的行数，默认为一屏，即父容器高度
+		            speed = opt.speed ? parseInt(opt.speed, 10) : 500, //卷动速度，数值越大，速度越慢（毫秒）
+		            timer = opt.timer ? parseInt(opt.timer, 10) : 3000; //滚动的时间间隔（毫秒）
+		
+		        if (line == 0) line = 1;
+		        var upHeight = 0 - line * lineH;
+		        //滚动函数
+		        scrollUp = function() {
+		            _this.animate({
+		                marginTop: upHeight
+		            }, speed, function() {
+		                for (i = 1; i <= line; i++) {
+		                    _this.find("li:first").appendTo(_this);
+		                }
+		                _this.css({
+		                    marginTop: 0
+		                });
+		            });
+		        }
+		        //鼠标事件绑定
+		        _this.hover(function() {
+		            clearInterval(timerID);
+		        }, function() {
+		            timerID = setInterval("scrollUp()", timer);
+		        }).mouseout();
+		    }
+		})
+		$(function() {
+		    $('#donate_carousel').Scroll({
+		        line: 1,
+		        speed: 1500,
+		        timer: 4000
+		    });
+		});
+	</script>
+</html>

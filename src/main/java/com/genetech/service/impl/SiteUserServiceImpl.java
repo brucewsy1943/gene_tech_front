@@ -60,7 +60,8 @@ public class SiteUserServiceImpl implements SiteUserService {
         siteUser.setEmail(siteUserDto.getEmail());
         siteUser.setInstitute(siteUserDto.getInstitute());
         siteUser.setPi_name(siteUserDto.getPi_name());
-        siteUser.setPi_phone(siteUserDto.getPi_phone());
+        //siteUser.setPi_phone(siteUserDto.getPi_phone());
+        siteUser.setPi_email(siteUserDto.getPi_email());
         siteUser.setInstitute_address(siteUserDto.getInstitute_address());
         siteUser.setIsActive(1);//是否通过PI审核 0：未通过 1：审核中 2：通过 3：未验证
         siteUserMapper.updateByPrimaryKey(siteUser);

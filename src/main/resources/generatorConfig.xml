@@ -37,7 +37,7 @@
 		</javaClientGenerator>
 
 		<!-- 指定数据库表 -->
-		<table tableName="t_plasmid_info" domainObjectName="PlasmidInfo"
+		<table tableName="t_plasmid_dict" domainObjectName="PlasmidDict"
 			   enableCountByExample="true"
 			   enableUpdateByExample="true"
 			   enableDeleteByExample="true"

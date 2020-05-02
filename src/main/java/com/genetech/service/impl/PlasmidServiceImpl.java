@@ -170,7 +170,7 @@ public class PlasmidServiceImpl implements PlasmidService {
        /* Integer goodsId = plasmidInfo.getGoods_id();
         Goods goods = goodsService.getGoodsById(goodsId);*/
         Goods goods = goodsService.getGoodsByProductId(id);
-        pd.setGoods_id(goods.getId());
+        pd.setGoods_id(goods==null?null:goods.getId());
 
         //附件
        String attachmentUrls = pd.getAtt_urls();
@@ -206,9 +206,9 @@ public class PlasmidServiceImpl implements PlasmidService {
             plasmidInfoDto.setGrowth_bacterial_resistance_array(bacterialResistances);
         }
 
-        if (!StringUtils.isEmpty(plasmidInfoDto.getPlasmid_description())){//selection_mark
-            String[] plasmid_descriptions = plasmidInfoDto.getPlasmid_description().split(",");
-            plasmidInfoDto.setPlasmid_description_array(plasmid_descriptions);
+        if (!StringUtils.isEmpty(plasmidInfoDto.getVector_type())){//selection_mark
+            String[] plasmid_descriptions = plasmidInfoDto.getVector_type().split(",");
+            plasmidInfoDto.setVector_type_array(plasmid_descriptions);
         }
 
         if (!StringUtils.isEmpty(plasmidInfoDto.getGene_species())){//Gene_species

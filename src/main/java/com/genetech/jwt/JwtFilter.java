@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class JwtFilter extends BasicHttpAuthenticationFilter{
 
 	//写个根路径
-	private final static String loginUrl = "../user/login.html";
+	private final static String loginUrl = "template/user/login.html";
 
 	private final static String AUTHORIZATION = "Authorization";
 	/** * 判断用户是否想要登入。

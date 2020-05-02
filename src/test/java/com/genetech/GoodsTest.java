@@ -29,6 +29,11 @@ import java.util.*;
 
 /**
  * Created by Administrator on 2019/12/18.
+ * 导数据步骤
+ * 1、导入excel
+ * 2、给每个质粒添加添加时间
+ * 3、给每个运行testInsertGoods
+ * 4、getQueryDate的时间用来为新增数据做标识。需要设置和新增的数据一样的时间
  */
 
 @RunWith(SpringRunner.class)
@@ -52,7 +57,7 @@ public class GoodsTest {
     private final static List<String> fileNames = FileUtils.getFilesInFolder(filePath);
 
     private Date getQueryDate() throws ParseException {
-        String today = "2020-02-27";
+        String today = "2020-04-29";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.parse(today);
     }
@@ -110,6 +115,7 @@ public class GoodsTest {
         updatePlasmid();
     }
 
+    //给每个质粒添加attach 附件
     @Test
     public void updatePlasmid() throws ParseException {
         PlasmidInfoExample plasmidInfoExample = new PlasmidInfoExample();

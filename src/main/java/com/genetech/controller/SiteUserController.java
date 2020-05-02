@@ -186,10 +186,12 @@ public class SiteUserController extends BaseController{
             return new ResponseBean(false, 500,"机构地址不能为空！",null);
         }
 
-        if(StringUtils.isEmpty(siteUserDto.getPi_phone())){
+        /*if(StringUtils.isEmpty(siteUserDto.getPi_phone())){
             return new ResponseBean(false, 500,"PI电话不能为空！",null);
+        }*/
+        if(StringUtils.isEmpty(siteUserDto.getPi_email())){
+            return new ResponseBean(false, 500,"PI邮箱不能为空！",null);
         }
-
         siteUserService.piCertificate(siteUser.getId(),siteUserDto);
         return  new ResponseBean(true, 200, "success！",null);
     }

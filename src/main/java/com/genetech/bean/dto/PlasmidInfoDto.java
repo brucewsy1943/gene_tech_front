@@ -20,7 +20,7 @@ public class PlasmidInfoDto extends PlasmidInfo{
     private String[] plasmid_type_array;
     private String[] growth_bacterial_resistance_array;
     private String[] gene_species_array;
-    private String[] plasmid_description_array;
+    private String[] vector_type_array;
     private Integer goods_id;
 
     public String getKeyword() {
@@ -111,12 +111,12 @@ public class PlasmidInfoDto extends PlasmidInfo{
         this.gene_species_array = gene_species_array;
     }
 
-    public String[] getPlasmid_description_array() {
-        return plasmid_description_array;
+    public String[] getVector_type_array() {
+        return vector_type_array;
     }
 
-    public void setPlasmid_description_array(String[] plasmid_description_array) {
-        this.plasmid_description_array = plasmid_description_array;
+    public void setVector_type_array(String[] vector_type_array) {
+        this.vector_type_array = vector_type_array;
     }
 
     public Integer getGoods_id() {

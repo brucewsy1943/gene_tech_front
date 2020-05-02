@@ -978,11 +978,11 @@
       </foreach>
 
     </if>
-    <if test="plasmid_description != null and plasmid_description != ''">
+    <if test="vector_type != null and vector_type != ''">
       AND
-      <foreach close=")" collection="plasmid_description_array" index="index" item="item" open="(" separator="or">
+      <foreach close=")" collection="vector_type_array" index="index" item="item" open="(" separator="or">
 
-        plasmid_description LIKE "%"#{item}"%"
+        vector_type LIKE "%"#{item}"%"
 
       </foreach>
     </if>
@@ -1044,7 +1044,9 @@
           OR lab_name LIKE "%"#{keyword}"%"
           OR source_article LIKE "%"#{keyword}"%"
         )
+      ORDER BY plasmid_identification ASC
     </if>
+
   </select>
 
 </mapper>

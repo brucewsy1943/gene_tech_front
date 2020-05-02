@@ -43,11 +43,10 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private GoodsService goodsService;
 
-    ReentrantLock reentrantLock = new ReentrantLock();
     //---这个方法要加锁，为了保证订单编号的唯一递增
     @Transactional
     @Override
-    synchronized public String addOrder(String cartKey,OrderDto orderDto,Integer userId,InvoiceDto invoiceDto) {
+    public String addOrder(String cartKey,OrderDto orderDto,Integer userId,InvoiceDto invoiceDto) {
         //0、取出购物车
         List<ShoppingCartDto> shoppingList = RedisUtils.getList(cartKey,ShoppingCartDto.class);
         //假如购物车没货
@@ -139,7 +138,7 @@ public class OrderServiceImpl implements OrderService {
         OrderExample orderExample = new OrderExample();
         OrderExample.Criteria criteria = orderExample.createCriteria();
         criteria.andUser_idEqualTo(userId);
-
+        orderExample.setOrderByClause("create_time DESC");
         PageHelper.startPage(pageDto.getPageNum(),pageDto.getPageSize());
         List<Order> orders = orderMapper.selectByExample(orderExample);
 
@@ -179,7 +178,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     //生成订单编号
-    private String generateOrderNumber(){
+    synchronized private String generateOrderNumber(){
         //SP-DXXXXXXXXX XX指年份；XX指月份；XXX为001-999
         //currentYear + currentMonth + countValue
         String orderNumber= "";
@@ -188,6 +187,8 @@ public class OrderServiceImpl implements OrderService {
         //获取当前年月
         Calendar calendar = Calendar.getInstance();
         String currentYear = calendar.get(Calendar.YEAR) + "";
+        //取年的后两位
+        currentYear = currentYear.substring(2,currentYear.length());
         String currentMonth = "";
         int currentMonthInt = calendar.get(Calendar.MONTH) + 1;
         if(currentMonthInt<10){
@@ -205,14 +206,14 @@ public class OrderServiceImpl implements OrderService {
 
         String orderNumberInLastOrder = lastOrder.getOrder_number();
         //获取最后一个订单的月份
-        String monthInOrder = orderNumberInLastOrder.substring(8,10);
+        String monthInOrder = orderNumberInLastOrder.substring(6,8);
 
         //假如当前的订单月份和最后一个不一致，则重新生成后三位
         if (!monthInOrder.equals(currentMonth)){
             countValue = "001";
         }else {//一致，则在原来的基础上加1
             //最后一个订单的个数编号---最后3位
-            String countValueInLastOrderStr = orderNumberInLastOrder.substring(10,13);
+            String countValueInLastOrderStr = orderNumberInLastOrder.substring(8,orderNumberInLastOrder.length());
             Integer countValueInLastOrderInt = Integer.parseInt(countValueInLastOrderStr);
             Integer currentCountValueInteger = countValueInLastOrderInt + 1;
             if (currentCountValueInteger < 10){
