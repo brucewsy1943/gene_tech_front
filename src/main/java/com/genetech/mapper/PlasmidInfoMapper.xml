@@ -957,11 +957,9 @@
 
   <select id="searchPlasmidInfos" parameterType="com.genetech.bean.dto.PlasmidInfoDto" resultMap="ResultMapWithBLOBs">
     select
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from t_plasmid_info
-    WHERE 1=1
+    pi.id as id, plasmid_identification, plasmid_name, gene_name, gene_species,vector_type, gene_mutation,growth_bacterial_resistance
+    from t_plasmid_info pi LEFT JOIN t_goods g ON pi.id = g.product_id
+    WHERE g.status = 1
 
     <if test="growth_bacterial_resistance != null and growth_bacterial_resistance!='' ">
       AND

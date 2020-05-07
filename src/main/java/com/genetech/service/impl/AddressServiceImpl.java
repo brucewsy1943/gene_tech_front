@@ -38,6 +38,9 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public DeliveryAddressDto getDeliverAddressById(Integer id) throws InvocationTargetException, IllegalAccessException {
         DeliveryAddress deliveryAddress = deliveryAddressMapper.selectByPrimaryKey(id);
+        if(deliveryAddress == null){
+            return null;
+        }
         DeliveryAddressDto deliveryAddressDto = new DeliveryAddressDto();
         BeanUtils.copyProperties(deliveryAddressDto,deliveryAddress);
         return deliveryAddressDto;

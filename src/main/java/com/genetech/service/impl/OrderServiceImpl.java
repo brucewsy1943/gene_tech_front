@@ -90,18 +90,17 @@ public class OrderServiceImpl implements OrderService {
         if (!CollectionUtils.isEmpty(shoppingList)){
             for (ShoppingCartDto shoppingCartDto : shoppingList) {
                 String detailId = UUID.randomUUID().toString();
-                OrderDetailDto ordetailDto = new OrderDetailDto(detailId,
-                        orderId,
-                        shoppingCartDto.getGoodsNum(),
-                        shoppingCartDto.getPrice(),
-                        shoppingCartDto.getGoodsId(),
-                        null,//discount
-                        null,//pay_type
-                        0,//order_status
-                        shoppingCartDto.getSumary(),//sumary
-                        shoppingCartDto.getGoodsName(),
-                        shoppingCartDto.getProductId());//
-                orderDetailService.addOrderDetail(ordetailDto);
+                OrderDetailDto orderDetailDto = new OrderDetailDto();//
+                orderDetailDto.setId(detailId);
+                orderDetailDto.setOrder_id(orderId);
+                orderDetailDto.setGoods_num(orderDetailDto.getGoods_num());
+                orderDetailDto.setMoney(shoppingCartDto.getPrice());
+                orderDetailDto.setGoods_id(shoppingCartDto.getGoodsId());
+                orderDetailDto.setSumary(shoppingCartDto.getSumary());
+                orderDetailDto.setGoodsName(shoppingCartDto.getGoodsName());
+                orderDetailDto.setProduct_id(shoppingCartDto.getProductId());
+                orderDetailDto.setProduct_code(shoppingCartDto.getProductCode());
+                orderDetailService.addOrderDetail(orderDetailDto);
             }
         }
         return orderId;
@@ -121,7 +120,8 @@ public class OrderServiceImpl implements OrderService {
 
             OrderDetailDto orderDetailDto = orderDetails.get(i);
             Goods goods = goodsService.getGoodsById(orderDetailDto.getGoods_id());
-            orderDetailDto.setProductCode(goods.getProduct_code());
+            String productCode = (goods==null?null:goods.getProduct_code());
+            orderDetailDto.setProductCode(productCode);
         }
         orderDto.setOrderDetails(orderDetails);
 

@@ -38,7 +38,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         OrderDetailExample orderDetailExample = new OrderDetailExample();
         OrderDetailExample.Criteria criteria = orderDetailExample.createCriteria();
         criteria.andOrder_idEqualTo(orderId);
-        List<OrderDetail> orderDetails = orderDetailMapper.selectByExample(orderDetailExample);
+        //List<OrderDetail> orderDetails = orderDetailMapper.selectByExample(orderDetailExample);
+        List<OrderDetail> orderDetails = orderDetailMapper.selectOrderDetailList(orderDetailExample);
 
         //转化成DTO\
        /* SpringUtil<OrderDetail> stringUtil = new SpringUtil<>();

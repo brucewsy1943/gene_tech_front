@@ -12,16 +12,12 @@ public class OrderDetailDto extends OrderDetail {
     private String goodsName;
     private Integer plasmidId;
     private String productCode;
-
+    private Integer productStatus;
     public OrderDetailDto() {
     }
 
-    public OrderDetailDto(String id, String order_id, Integer goods_num, BigDecimal money, Integer goods_id, BigDecimal discount, Integer pay_type, Integer order_status, BigDecimal sumary, String goods_name, Integer product_id) {
-        super(id, order_id, goods_num, money, goods_id, discount, pay_type, order_status, sumary, goods_name, product_id);
-    }
-
-    public OrderDetailDto(String id, String order_id, Integer goods_num, BigDecimal money, Integer goods_id, BigDecimal discount, Integer pay_type, Integer order_status, BigDecimal sumary, String goods_name, Integer product_id, String orderStatus, String goodsName, Integer plasmidId, String productCode) {
-        super(id, order_id, goods_num, money, goods_id, discount, pay_type, order_status, sumary, goods_name, product_id);
+    public OrderDetailDto(String id, String order_id, Integer goods_num, BigDecimal money, Integer goods_id, BigDecimal discount, Integer pay_type, Integer order_status, BigDecimal sumary, String goods_name, Integer product_id, String product_code, String orderStatus, String goodsName, Integer plasmidId, String productCode) {
+        super(id, order_id, goods_num, money, goods_id, discount, pay_type, order_status, sumary, goods_name, product_id, product_code);
         this.orderStatus = orderStatus;
         this.goodsName = goodsName;
         this.plasmidId = plasmidId;
@@ -58,5 +54,13 @@ public class OrderDetailDto extends OrderDetail {
 
     public void setProductCode(String productCode) {
         this.productCode = productCode;
+    }
+
+    public Integer getProductStatus() {
+        return productStatus;
+    }
+
+    public void setProductStatus(Integer productStatus) {
+        this.productStatus = productStatus;
     }
 }
