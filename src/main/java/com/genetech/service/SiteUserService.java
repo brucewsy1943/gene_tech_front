@@ -24,4 +24,7 @@ public interface SiteUserService {
     //用户更新
     public void updateSiteUser(SiteUser siteUser,SiteUserDto siteUserDto);
 
+    //重置密码
+    public void resetPassword(SiteUserDto siteUserDto);
+
 }

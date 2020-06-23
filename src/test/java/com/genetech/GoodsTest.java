@@ -57,7 +57,7 @@ public class GoodsTest {
     private final static List<String> fileNames = FileUtils.getFilesInFolder(filePath);
 
     private Date getQueryDate() throws ParseException {
-        String today = "2020-04-29";
+        String today = "2020-06-21";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.parse(today);
     }
@@ -101,7 +101,7 @@ public class GoodsTest {
                     new BigDecimal(300),//price
                     info.getPlasmid_name(),//name
                     getAttachmentUrl(info),//attachment_urls附件
-                    0,//status是否上架
+                    1,//status是否上架
                     info.getPlasmid_identification(),//product_code
                     123,//库存
                     goodsCode,//商品编号
@@ -115,7 +115,7 @@ public class GoodsTest {
         updatePlasmid();
     }
 
-    //给每个质粒添加attach 附件
+    //给每个质粒添加attach 附件（附件最终还是在质粒信息中！！！！记住！！！！虽然goods中有附件，但是逻辑换过了！全部都用质粒信息的附件！）
     @Test
     public void updatePlasmid() throws ParseException {
         PlasmidInfoExample plasmidInfoExample = new PlasmidInfoExample();

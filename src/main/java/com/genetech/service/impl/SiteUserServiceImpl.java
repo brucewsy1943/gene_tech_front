@@ -77,8 +77,18 @@ public class SiteUserServiceImpl implements SiteUserService {
             siteUser.setInstitute(siteUserDto.getInstitute());
             siteUser.setOrganization_type(siteUserDto.getOrganization_type());
         }
-
         siteUserMapper.updateByPrimaryKey(siteUser);
 
     }
+
+    @Transactional
+    @Override
+    public void resetPassword(SiteUserDto siteUserDto) {
+        SiteUser siteUser = getSiteUserByUserName(siteUserDto.getUserName());
+        //别忘了密码要加密的！
+        String md5Pwd = DigestUtils.md5DigestAsHex(siteUserDto.getPassword().getBytes());
+        siteUser.setPassword(md5Pwd);
+        siteUserMapper.updateByPrimaryKey(siteUser);
+    }
+
 }

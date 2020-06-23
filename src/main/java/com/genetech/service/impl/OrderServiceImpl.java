@@ -90,16 +90,17 @@ public class OrderServiceImpl implements OrderService {
         if (!CollectionUtils.isEmpty(shoppingList)){
             for (ShoppingCartDto shoppingCartDto : shoppingList) {
                 String detailId = UUID.randomUUID().toString();
-                OrderDetailDto orderDetailDto = new OrderDetailDto();//
+                OrderDetailDto orderDetailDto = new OrderDetailDto();//这里设置的属性一定是实体类对应数据库字段的属性！一定要当心！！！2020-5-7吃过亏！
                 orderDetailDto.setId(detailId);
                 orderDetailDto.setOrder_id(orderId);
-                orderDetailDto.setGoods_num(orderDetailDto.getGoods_num());
+                orderDetailDto.setGoods_num(shoppingCartDto.getGoodsNum());
                 orderDetailDto.setMoney(shoppingCartDto.getPrice());
                 orderDetailDto.setGoods_id(shoppingCartDto.getGoodsId());
                 orderDetailDto.setSumary(shoppingCartDto.getSumary());
-                orderDetailDto.setGoodsName(shoppingCartDto.getGoodsName());
+                orderDetailDto.setGoods_name(shoppingCartDto.getGoodsName());
                 orderDetailDto.setProduct_id(shoppingCartDto.getProductId());
                 orderDetailDto.setProduct_code(shoppingCartDto.getProductCode());
+                orderDetailDto.setOrder_status(0);//开始生成的时候都是0
                 orderDetailService.addOrderDetail(orderDetailDto);
             }
         }

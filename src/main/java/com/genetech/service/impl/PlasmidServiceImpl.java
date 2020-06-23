@@ -120,9 +120,9 @@ public class PlasmidServiceImpl implements PlasmidService {
     @Override
     public Map<String, List<PlasmidFilterDto>> getFilterConditions() throws NoSuchMethodException {
 
-        Map<String,List<PlasmidFilterDto>> result = new HashMap<>();//不是other的情况 [name,[{value1,null},{value2,null}......]]
+        Map<String,List<PlasmidFilterDto>> result = new LinkedHashMap<>();//不是other的情况 [name,[{value1,null},{value2,null}......]]
         //是other的情况：[name,[{value1,list},{value2,list}......]]
-        Map<String,List<String>> temp = new HashMap<>();
+        Map<String,List<String>> temp = new LinkedHashMap<>();
         List<PlasmidFilterDto> plasmidFilterDtoList = new ArrayList<>();
         List<String> columnNames = SpringUtil.getAllFieldNamesInClass(PlasmidDict.class);
 

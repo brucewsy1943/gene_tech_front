@@ -289,5 +289,29 @@ public class SiteUserController extends BaseController{
         return new ResponseBean(false, 500, "更新失败！",null);
     }
 
-    //
+    //用户是否存在，邮箱是否正确
+    @PostMapping("/isUserNameAndEmailExist")
+    public ResponseBean isUserNameAndEmailExist(SiteUserDto siteUserDto){
+        SiteUser siteUser = siteUserService.getSiteUserByUserName(siteUserDto.getUserName());
+        if (siteUser == null){
+            return new ResponseBean(false,500, "用户不存在!",null);
+        }
+        if(!siteUserDto.getEmail().equals(siteUser.getEmail())){
+            return new ResponseBean(false,500, "邮箱不正确!",null);
+        }
+
+
+        return  new ResponseBean(true,200, "查询成功!",null);
+    }
+
+    @PostMapping("/reset")
+    public ResponseBean resetPassword(SiteUserDto siteUserDto){
+        try{
+        siteUserService.resetPassword(siteUserDto);
+        }catch (Exception e){
+            return new ResponseBean(false,500, "服务器错误!",null);
+        }
+        return  new ResponseBean(true,200, "密码重置成功!",null);
+    }
+
 }
