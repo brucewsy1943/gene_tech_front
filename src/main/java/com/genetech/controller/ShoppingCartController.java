@@ -57,7 +57,7 @@ public class ShoppingCartController extends BaseController{
         boolean flag = false;//假如之前已经添加了这个商品则只是数量上改变
         for (int i = 0; i < list.size(); i++) {
             ShoppingCartDto scv =  list.get(i);
-            if (scv.getGoodsName().equals(goods.getName())){
+            if (scv.getProductCode().equals(goods.getProduct_code())){
                 flag = true;
                 scv.setGoodsNum(scv.getGoodsNum() + goodsNum);
                 scv.setSumary(goods.getPrice().multiply(BigDecimal.valueOf(scv.getGoodsNum())) );
