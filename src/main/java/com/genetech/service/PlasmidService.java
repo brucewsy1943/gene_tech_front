@@ -24,4 +24,8 @@ public interface PlasmidService {
    public PageInfo<PlasmidInfo> getPlasmidInfoPage(PlasmidInfoDto plasmidInfoDto, PageDto pageDto);
 
    public void deletePlasmidByIds(List<Integer> ids);
+
+   public int addPlasmidInfo(PlasmidInfoDto plasmidInfoDto);
+
+   public List<PlasmidInfo> getPlasmidInfoByIdentifications(List<String> identifications);
 }

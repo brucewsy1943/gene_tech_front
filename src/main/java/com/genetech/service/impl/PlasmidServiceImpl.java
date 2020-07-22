@@ -232,4 +232,17 @@ public class PlasmidServiceImpl implements PlasmidService {
         plasmidInfoMapper.deleteByExample(plasmidInfoExample);
     }
 
+    @Override
+    public int addPlasmidInfo(PlasmidInfoDto plasmidInfoDto) {
+        return plasmidInfoMapper.insert(plasmidInfoDto);
+    }
+
+    @Override
+    public List<PlasmidInfo> getPlasmidInfoByIdentifications(List<String> identifications) {
+        PlasmidInfoExample plasmidInfoExample = new PlasmidInfoExample();
+        PlasmidInfoExample.Criteria criteria = plasmidInfoExample.createCriteria();
+        criteria.andPlasmid_identificationIn(identifications);
+        return plasmidInfoMapper.selectByExample(plasmidInfoExample);
+    }
+
 }

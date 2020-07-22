@@ -68,7 +68,8 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
+
 		 <!-- mybatis自动生成代码插件 -->
 		<dependency>
 			<groupId>org.mybatis.generator</groupId>
@@ -163,6 +164,17 @@
 			<version>3.0.1</version>
 		</dependency>
 
+		<!-- POI -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>4.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>4.0.1</version>
+		</dependency>
 	</dependencies>
 
 

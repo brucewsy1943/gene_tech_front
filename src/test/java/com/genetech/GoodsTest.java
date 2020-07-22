@@ -1,9 +1,6 @@
 package com.genetech;
 
-import com.genetech.bean.Goods;
-import com.genetech.bean.GoodsExample;
-import com.genetech.bean.PlasmidInfo;
-import com.genetech.bean.PlasmidInfoExample;
+import com.genetech.bean.*;
 import com.genetech.bean.dto.GoodsDto;
 import com.genetech.bean.dto.PageDto;
 import com.genetech.bean.dto.PlasmidInfoDto;
@@ -11,6 +8,7 @@ import com.genetech.dao.GoodsMapper;
 import com.genetech.dao.PlasmidInfoMapper;
 import com.genetech.service.GoodsService;
 import com.genetech.service.PlasmidService;
+import com.genetech.utils.ExcelReaderUtil;
 import com.genetech.utils.FileUtils;
 import io.swagger.models.auth.In;
 import org.junit.Test;
@@ -52,30 +50,32 @@ public class GoodsTest {
     @Autowired
     private GoodsMapper goodsMapper;
 
+    private static String filepath = "D:/work/细胞库/数据库/数据库文件/2020-7-13.xlsx";//每次记得修改一下日期就行
+    private static String attachDirPath = "D:/uploadFile/lab_attachments";
+    //private static String picDirPath = "D:/uploadFile/cell/imgs";
     private final static String folderName = "lab_attachments/";
-    private final static String filePath = "D:/uploadFile/lab_attachments";
-    private final static List<String> fileNames = FileUtils.getFilesInFolder(filePath);
+    private final static List<String> fileNames = FileUtils.getFilesInFolder(attachDirPath);
 
-    private Date getQueryDate() throws ParseException {
+   /* private Date getQueryDate() throws ParseException {
         String today = "2020-06-21";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.parse(today);
-    }
+    }*/
 
     /**
      * 添加的goods条数由plasmid来决定
      * @throws ParseException
      */
-    @Test
+   /* @Test
     public void testInsertGoods() throws ParseException {
 
 
         //附件
         //获取文件夹下的所有文件
-      /*  String filePath = "";
-        fileNames = FileUtils.getFilesInFolder(filePath);*/
+      *//*  String filePath = "";
+        fileNames = FileUtils.getFilesInFolder(filePath);*//*
 
-        /**
+        *//**
          * Integer id,
          * BigDecimal price,
          * String name,
@@ -85,7 +85,7 @@ public class GoodsTest {
          * Integer stock,
          * String goods_code,
          * String introduction
-         */
+         *//*
 
         PlasmidInfoExample plasmidInfoExample = new PlasmidInfoExample();
         //添加筛选条件
@@ -144,7 +144,7 @@ public class GoodsTest {
         for (String fileName :fileNames) {
             String[] wholeName =fileName.split("\\.");
             String name = wholeName[0];
-            if (name.equals(plasmidID)){
+            if (name.contains(plasmidID)){
                 temp.add(fileName);
             }
         }
@@ -154,9 +154,9 @@ public class GoodsTest {
         }
 
         return result;
-    }
+    }*/
 
-    @Test
+  /*  @Test
     public void testUpdatePlasmid(){
         PlasmidInfoExample plasmidInfoExample = new PlasmidInfoExample();
         List<PlasmidInfo> plasmidInfos = plasmidInfoMapper.selectByExample(plasmidInfoExample);
@@ -177,11 +177,11 @@ public class GoodsTest {
                 }
             }
         }
-    }
+    }*/
 
     /**
      * 删除质粒和相应的商品---这里是质粒
-     */
+     *//*
     @Test
     public void deletePlasmidAndRelativeGoods() throws ParseException {
         PlasmidInfoExample plasmidInfoExample = new PlasmidInfoExample();
@@ -199,6 +199,6 @@ public class GoodsTest {
         //删质粒
         plasmidService.deletePlasmidByIds(productIds);
 
-    }
+    }*/
 
 }

@@ -139,7 +139,17 @@ public class StringUtil {
                 }
 		return "";
     }
-    
+
+    public static String getNumberInStr(String str){
+        String regEx = "[^0-9]";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(str);
+        System.out.println(m.replaceAll("").trim());
+        System.out.println(m.replaceFirst("").trim());
+        return m.replaceAll("").trim();
+    }
+
+
     public static void main(String[] args) {
     	System.out.println(getWorkNumberFromFileName("2133fdjsl发动机老司机16"));
 	}
