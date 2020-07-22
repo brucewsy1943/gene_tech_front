@@ -22,6 +22,7 @@ public class PlasmidInfoDto extends PlasmidInfo{
     private String[] gene_species_array;
     private String[] vector_type_array;
     private Integer goods_id;
+    private List<String> sequenceUrls;
 
     public String getKeyword() {
         return keyword;
@@ -125,5 +126,13 @@ public class PlasmidInfoDto extends PlasmidInfo{
 
     public void setGoods_id(Integer goods_id) {
         this.goods_id = goods_id;
+    }
+
+    public List<String> getSequenceUrls() {
+        return sequenceUrls;
+    }
+
+    public void setSequenceUrls(List<String> sequenceUrls) {
+        this.sequenceUrls = sequenceUrls;
     }
 }

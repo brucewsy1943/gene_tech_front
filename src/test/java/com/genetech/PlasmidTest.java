@@ -45,7 +45,7 @@ public class PlasmidTest {
     private final static String sequeceDirPath = "D:/uploadFile/plasmid/files/sequence";
     //private static String picDirPath = "D:/uploadFile/plasmid/images";
     private final static String atlasFolderName = "files/atlas/";
-    private final static String sequeceFolderName = "files/sequece/";
+    private final static String sequeceFolderName = "files/sequence/";
     private  static List<String> fileNamesForAtlas = FileUtils.getFilesInFolder(atalasDirPath);
     private  static List<String> fileNamesForSequence = FileUtils.getFilesInFolder(sequeceDirPath);
     //新增质粒

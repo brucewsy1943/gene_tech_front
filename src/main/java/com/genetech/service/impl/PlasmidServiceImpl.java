@@ -111,12 +111,6 @@ public class PlasmidServiceImpl implements PlasmidService {
         return pagelist;
     }
 
-
-    PageInfo<PlasmidInfo> getPlasmidPage(){
-
-        return null;
-    }
-
     @Override
     public Map<String, List<PlasmidFilterDto>> getFilterConditions() throws NoSuchMethodException {
 
