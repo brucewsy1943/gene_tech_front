@@ -45,6 +45,8 @@
 			   selectByExampleQueryId="true">
 			<!-- 驼峰命名-->
 			<property name="useActualColumnNames" value="true" />
+			<!-- 改、增、删会返回这条数据的id -->
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
 		</table>
 	</context>
 </generatorConfiguration>

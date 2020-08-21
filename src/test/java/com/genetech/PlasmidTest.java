@@ -40,14 +40,15 @@ public class PlasmidTest {
     @Autowired
     private GoodsService goodsService;
 
-    private final static String filepath = "D:/work/细胞库/数据库/数据库文件/2020-7-13.xlsx";//每次记得修改一下日期就行
+    private final static String filepath = "D:/work/质粒平台/数据库/2020-8-21/20200820-数据上传-CLY1.xlsx";//每次记得修改一下日期就行
+
     private final static String atalasDirPath = "D:/uploadFile/plasmid/files/atlas";
     private final static String sequeceDirPath = "D:/uploadFile/plasmid/files/sequence";
     //private static String picDirPath = "D:/uploadFile/plasmid/images";
     private final static String atlasFolderName = "files/atlas/";
     private final static String sequeceFolderName = "files/sequence/";
-    private  static List<String> fileNamesForAtlas = FileUtils.getFilesInFolder(atalasDirPath);
-    private  static List<String> fileNamesForSequence = FileUtils.getFilesInFolder(sequeceDirPath);
+    private  static List<String> fileNameListForAtlas = FileUtils.getFilesInFolder(atalasDirPath);
+    private  static List<String> fileNameListForSequence = FileUtils.getFilesInFolder(sequeceDirPath);
     //新增质粒
     @Test
     public void addPlasmid(){
@@ -71,7 +72,7 @@ public class PlasmidTest {
                     plasmidInfo.getPlasmid_identification(),//product_code
                     123,//库存随便写
                     null,//goods_code
-                    plasmidInfo.getId(),
+                    null,//product_id
                     plasmidInfo.getPlasmid_description()//简介
             );
             int plasmidInfoId = plasmidService.addPlasmidInfo(plasmidInfoDto);
@@ -100,7 +101,7 @@ public class PlasmidTest {
                 BeanUtils.copyProperties(source,target);
                 target.setId(id);
                 //cellInfo.setAdd_time(new Date());
-                plasmidInfoMapper.updateByPrimaryKey(target);
+                plasmidInfoMapper.updateByPrimaryKeyWithBLOBs(target);
             }
         }
     }
@@ -109,7 +110,7 @@ public class PlasmidTest {
     @Test
     public void addAtlas(){
         List<String> identifiers = new ArrayList<>();
-        for (String filename :fileNamesForSequence) {
+        for (String filename :fileNameListForAtlas) {
             if (filename!=null && !"".equals(filename)){
                 identifiers.add(filename.split("\\.")[0]);//具体用什么标识，再说
             }
@@ -117,13 +118,13 @@ public class PlasmidTest {
         List<PlasmidInfo> list = plasmidService.getPlasmidInfoByIdentifications(identifiers);
         for (int i = 0; i < list.size(); i++) {
             PlasmidInfo plasmidInfo = list.get(i);
-            for (int j = 0; j < fileNamesForAtlas.size(); j++) {
-                String fileName = fileNamesForAtlas.get(j).split("\\.")[0];
+            for (int j = 0; j < fileNameListForAtlas.size(); j++) {
+                String fileName = fileNameListForAtlas.get(j).split("\\.")[0];
                 if(fileName.equals(plasmidInfo.getPlasmid_identification())){
                     String attachUrls = plasmidInfo.getAtt_urls()==null?"":plasmidInfo.getAtt_urls();
                     //原来没有，直接添加
                     if("".equals(attachUrls)){
-                        plasmidInfo.setAtt_urls(atlasFolderName+fileNamesForAtlas.get(j));
+                        plasmidInfo.setAtt_urls(atlasFolderName+fileNameListForAtlas.get(j));
                         plasmidInfoMapper.updateByPrimaryKey(plasmidInfo);
                         continue;//可能一个质粒有多个附件，所以还要继续循环
                     }
@@ -138,7 +139,7 @@ public class PlasmidTest {
                     }
                     //否则把附件url加入
                     if(flag){
-                        plasmidInfo.setAtt_urls(attachUrls+","+(atlasFolderName+fileNamesForAtlas.get(j)));
+                        plasmidInfo.setAtt_urls(attachUrls+","+(atlasFolderName+fileNameListForAtlas.get(j)));
                         plasmidInfoMapper.updateByPrimaryKey(plasmidInfo);
                     }
 
@@ -149,11 +150,10 @@ public class PlasmidTest {
 
 
     //新增测序文件
-    //新增附件
     @Test
     public void addSequences(){
         List<String> identifiers = new ArrayList<>();
-        for (String filename :fileNamesForSequence) {
+        for (String filename :fileNameListForSequence) {
             if (filename!=null && !"".equals(filename)){
                 identifiers.add(filename.split("\\.")[0].split(" ")[0]);//具体用什么标识，再说
             }
@@ -161,14 +161,14 @@ public class PlasmidTest {
         List<PlasmidInfo> list = plasmidService.getPlasmidInfoByIdentifications(identifiers);
         for (int i = 0; i < list.size(); i++) {
             PlasmidInfo plasmidInfo = list.get(i);
-            for (int j = 0; j < fileNamesForSequence.size(); j++) {
-                String fileName = fileNamesForSequence.get(j).split("\\.")[0];
+            for (int j = 0; j < fileNameListForSequence.size(); j++) {
+                String fileName = fileNameListForSequence.get(j).split("\\.")[0];
                 String identifier = fileName.split(" ")[0];
                 if(identifier.equals(plasmidInfo.getPlasmid_identification())){
                     String sequenceUrls = plasmidInfo.getPlasmid_sequence()==null?"":plasmidInfo.getPlasmid_sequence();
                     //原来没有，直接添加
                     if("".equals(sequenceUrls)){
-                        plasmidInfo.setPlasmid_sequence(sequeceFolderName+fileNamesForSequence.get(j));
+                        plasmidInfo.setPlasmid_sequence(sequeceFolderName+fileNameListForSequence.get(j));
                         plasmidInfoMapper.updateByPrimaryKey(plasmidInfo);
                         continue;//可能一个质粒有多个附件，所以还要继续循环
                     }
@@ -176,14 +176,15 @@ public class PlasmidTest {
                     String[] originUrls = sequenceUrls.split(",");
                     boolean flag = true;
                     for (String originUrl :originUrls) {
-                        if(fileName.equals(originUrl)){//只要新的和以前有一个是重叠的，就不添加
+                        String url = sequeceFolderName+fileName;//原先的文件名是带路径的
+                        if(url.equals(originUrl)){//只要新的和以前有一个是重叠的，就不添加
                             flag = false;
                             break;
                         }
                     }
                     //否则把附件url加入
                     if(flag){
-                        plasmidInfo.setPlasmid_sequence(sequenceUrls+","+(sequeceFolderName+fileNamesForSequence.get(j)));
+                        plasmidInfo.setPlasmid_sequence(sequenceUrls+","+(sequeceFolderName+fileNameListForSequence.get(j)));
                         plasmidInfoMapper.updateByPrimaryKey(plasmidInfo);
                     }
 

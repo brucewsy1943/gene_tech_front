@@ -222,7 +222,11 @@ public class ExcelReaderUtil<T> {
         if(cell == null){
             return null;
         }
-        String cellName = convertCellValueToString(cell).toString();
+        Object convertedCellValue = convertCellValueToString(cell);
+        if(convertedCellValue ==null){
+            return null;
+        }
+        String cellName = convertedCellValue.toString();
         return cellName;
     }
 

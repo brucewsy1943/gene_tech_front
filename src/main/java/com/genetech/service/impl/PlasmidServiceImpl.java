@@ -228,7 +228,8 @@ public class PlasmidServiceImpl implements PlasmidService {
 
     @Override
     public int addPlasmidInfo(PlasmidInfoDto plasmidInfoDto) {
-        return plasmidInfoMapper.insert(plasmidInfoDto);
+        plasmidInfoMapper.insert(plasmidInfoDto);
+        return plasmidInfoDto.getId();
     }
 
     @Override
