@@ -16,4 +16,7 @@ public interface OrderDetailService {
     public List<OrderDetailDto> getOrderDetaiListByOrder(String orderId) throws InvocationTargetException, ClassNotFoundException, InstantiationException, IllegalAccessException;
 
     public void changeOrderStatus(String orderDetailId, Integer status);
+
+    public OrderDetailDto getOrderDetailInfo(String id) throws InvocationTargetException, IllegalAccessException;
+
 }

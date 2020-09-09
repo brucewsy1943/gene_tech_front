@@ -62,6 +62,16 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         orderDetailMapper.updateByPrimaryKey(orderDetail);
     }
 
+    @Override
+    public OrderDetailDto getOrderDetailInfo(String id) {
+        OrderDetailDto orderDetailDto = new OrderDetailDto();
+        OrderDetail orderDetail = orderDetailMapper.selectByPrimaryKey(id);
+        if(orderDetail!=null){
+            org.springframework.beans.BeanUtils.copyProperties(orderDetail,orderDetailDto);
+        }
+        return orderDetailDto;
+    }
+
 
     private List<OrderDetailDto> getOrderDetailList(List<OrderDetail> orderDetails,String classPath) throws Exception {
         SpringUtil<OrderDetail> stringUtil = new SpringUtil<>();

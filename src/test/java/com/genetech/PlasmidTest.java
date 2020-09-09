@@ -40,7 +40,7 @@ public class PlasmidTest {
     @Autowired
     private GoodsService goodsService;
 
-    private final static String filepath = "D:/work/质粒平台/数据库/2020-8-21/20200820-数据上传-CLY1.xlsx";//每次记得修改一下日期就行
+    private final static String filepath = "D:/work/质粒平台/数据库/2020-9-9/2020-9-9-修改.xlsx";//每次记得修改一下日期就行
 
     private final static String atalasDirPath = "D:/uploadFile/plasmid/files/atlas";
     private final static String sequeceDirPath = "D:/uploadFile/plasmid/files/sequence";
@@ -75,6 +75,9 @@ public class PlasmidTest {
                     null,//product_id
                     plasmidInfo.getPlasmid_description()//简介
             );
+            if(plasmidInfoDto.getPlasmid_identification() == null || "".equals(plasmidInfoDto.getGene_identification())){
+                continue;
+            }
             int plasmidInfoId = plasmidService.addPlasmidInfo(plasmidInfoDto);
             goodsDto.setProduct_id(plasmidInfoId);
             goodsService.addGoods(goodsDto);
@@ -112,14 +115,14 @@ public class PlasmidTest {
         List<String> identifiers = new ArrayList<>();
         for (String filename :fileNameListForAtlas) {
             if (filename!=null && !"".equals(filename)){
-                identifiers.add(filename.split("\\.")[0]);//具体用什么标识，再说
+                identifiers.add(filename.split("\\.")[0].split(" ")[0]);//具体用什么标识，再说
             }
         }
         List<PlasmidInfo> list = plasmidService.getPlasmidInfoByIdentifications(identifiers);
         for (int i = 0; i < list.size(); i++) {
             PlasmidInfo plasmidInfo = list.get(i);
             for (int j = 0; j < fileNameListForAtlas.size(); j++) {
-                String fileName = fileNameListForAtlas.get(j).split("\\.")[0];
+                String fileName = fileNameListForAtlas.get(j).split("\\.")[0].split(" ")[0];
                 if(fileName.equals(plasmidInfo.getPlasmid_identification())){
                     String attachUrls = plasmidInfo.getAtt_urls()==null?"":plasmidInfo.getAtt_urls();
                     //原来没有，直接添加
@@ -132,7 +135,7 @@ public class PlasmidTest {
                     String[] originUrls = attachUrls.split(",");
                     boolean flag = true;
                     for (String originUrl :originUrls) {
-                        if(fileName.equals(originUrl)){//只要新的和以前有一个是重叠的，就不添加
+                        if((atlasFolderName + fileNameListForAtlas.get(j)).equals(originUrl)){//只要新的和以前有一个是重叠的，就不添加
                             flag = false;
                             break;
                         }
@@ -142,12 +145,10 @@ public class PlasmidTest {
                         plasmidInfo.setAtt_urls(attachUrls+","+(atlasFolderName+fileNameListForAtlas.get(j)));
                         plasmidInfoMapper.updateByPrimaryKey(plasmidInfo);
                     }
-
                 }
             }
         }
     }
-
 
     //新增测序文件
     @Test
