@@ -36,11 +36,11 @@ public class KaptchaController {
 
 	        String capText = defaultKaptcha.createText();
 
-	        //将验证码存到session
-	        //httpServletRequest.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
-			  Jedis jedis = RedisUtils.getJedis();
-			  jedis.set(Constants.KAPTCHA_SESSION_KEY,capText);
-	        System.out.println("获取验证码"+httpServletRequest.getSession().getId());
+		  //将验证码存到session
+		  httpServletRequest.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
+			  /*Jedis jedis = RedisUtils.getJedis();
+			  jedis.set(Constants.KAPTCHA_SESSION_KEY,capText);*/
+		  System.out.println("获取验证码"+httpServletRequest.getSession().getId());
 	        BufferedImage bi = defaultKaptcha.createImage(capText);
 	        ServletOutputStream out = httpServletResponse.getOutputStream();
 	        // write the data out

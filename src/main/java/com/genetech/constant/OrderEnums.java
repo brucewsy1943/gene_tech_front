@@ -10,7 +10,7 @@ public enum OrderEnums {
     ORDER_COMPLETE(3,"已完成"),
     ORDER_WAIT_RECEIVE(2,"待收货"),
     ORDER_WAIT_SEND(1,"待发货"),
-    ORDER_WAIT_PAY(0,"未付款");
+    ORDER_WAIT_PAY(0,"及时查看邮箱");
 
     private Integer index;
     private String value;

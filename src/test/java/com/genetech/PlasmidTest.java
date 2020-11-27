@@ -17,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
@@ -40,10 +41,11 @@ public class PlasmidTest {
     @Autowired
     private GoodsService goodsService;
 
-    private final static String filepath = "D:/work/质粒平台/数据库/2020-9-9/2020-9-9-修改.xlsx";//每次记得修改一下日期就行
+    private final static String filepath = "D:/work/质粒平台/数据库/2020-10-27/20201027-数据上传-修改.xlsx";//每次记得修改一下日期就行
 
     private final static String atalasDirPath = "D:/uploadFile/plasmid/files/atlas";
     private final static String sequeceDirPath = "D:/uploadFile/plasmid/files/sequence";
+    //private final static String sequeceDirPath = "\\\\192.168.1.251/rdcc/Public Data/CCRB-质粒库/5-数据库/测序上传/20200918";
     //private static String picDirPath = "D:/uploadFile/plasmid/images";
     private final static String atlasFolderName = "files/atlas/";
     private final static String sequeceFolderName = "files/sequence/";
@@ -101,6 +103,8 @@ public class PlasmidTest {
             if(!CollectionUtils.isEmpty(list)){
                 PlasmidInfo target = plasmidInfoMapper.selectByExample(plasmidInfoExample).get(0);
                 Integer id = target.getId();
+                source.setAtt_urls(target.getAtt_urls());
+                source.setPlasmid_sequence(target.getPlasmid_sequence());
                 BeanUtils.copyProperties(source,target);
                 target.setId(id);
                 //cellInfo.setAdd_time(new Date());
@@ -164,6 +168,7 @@ public class PlasmidTest {
             PlasmidInfo plasmidInfo = list.get(i);
             for (int j = 0; j < fileNameListForSequence.size(); j++) {
                 String fileName = fileNameListForSequence.get(j).split("\\.")[0];
+
                 String identifier = fileName.split(" ")[0];
                 if(identifier.equals(plasmidInfo.getPlasmid_identification())){
                     String sequenceUrls = plasmidInfo.getPlasmid_sequence()==null?"":plasmidInfo.getPlasmid_sequence();
@@ -177,7 +182,7 @@ public class PlasmidTest {
                     String[] originUrls = sequenceUrls.split(",");
                     boolean flag = true;
                     for (String originUrl :originUrls) {
-                        String url = sequeceFolderName+fileName;//原先的文件名是带路径的
+                        String url = sequeceFolderName+fileNameListForSequence.get(j);//原先的文件名是带路径的
                         if(url.equals(originUrl)){//只要新的和以前有一个是重叠的，就不添加
                             flag = false;
                             break;

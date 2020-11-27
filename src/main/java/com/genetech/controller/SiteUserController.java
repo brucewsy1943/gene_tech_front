@@ -81,8 +81,8 @@ public class SiteUserController extends BaseController{
         //校验验证码
         System.out.println("检查验证码"+request.getSession().getId());
         //从session中拿出存放的验证码跟前端传递过来的进行比较
-        //String rightCode = (String) request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
-        String rightCode = RedisUtils.getJedis().get(Constants.KAPTCHA_SESSION_KEY);
+        String rightCode = (String) request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+        //String rightCode = RedisUtils.getJedis().get(Constants.KAPTCHA_SESSION_KEY);
         System.out.println(siteUserDto);
         if (!rightCode.equals(siteUserDto.getVerifyCode())) {
             return new ResponseBean(false, 500, "验证码错误！",null);

@@ -133,15 +133,20 @@ public class ShoppingCartController extends BaseController{
     @RequestMapping("/list")
     public  ResponseBean shoppingCartList(HttpServletRequest request){
         SiteUser siteUser = null;
+        List<ShoppingCartDto> list = null;
         try {
             siteUser = getUserInfo(request);
+            if(siteUser == null){
+                new ResponseBean(false, ReturnCode.EMPTY_USER,"用户未登录！",null);
+            }
+            Integer userId = siteUser.getId();
+            String cartKey = userId+"shoppingCart";
+            list = RedisUtils.getList(cartKey,ShoppingCartDto.class);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseBean(false, ReturnCode.EMPTY_USER,"用户未登录",null,e.getMessage());
+            return new ResponseBean(false, ReturnCode.EMPTY_USER,e.getMessage(),null,e.getMessage());
         }
-        Integer userId = siteUser.getId();
-        String cartKey = userId+"shoppingCart";
-        List<ShoppingCartDto> list = RedisUtils.getList(cartKey,ShoppingCartDto.class);
+
         //List<ShoppingCartDto> list = cartMap.get(cartKey);
         return new ResponseBean(true,200,"请求成功",list);
     }
