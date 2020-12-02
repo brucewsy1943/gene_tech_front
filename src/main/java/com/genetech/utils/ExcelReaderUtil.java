@@ -194,6 +194,9 @@ public class ExcelReaderUtil<T> {
             System.out.print(fieldName);
             for (int j = 0; j < fields.length; j++) {
                 Cell cell = row.getCell(j);
+                if(cell == null){
+                    continue;
+                }
                 String cellName = getCellName(j,firstRow);
                 if(cellName == null || cellName == ""){
                     continue;
