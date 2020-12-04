@@ -208,7 +208,11 @@ public class ExcelReaderUtil<T> {
                     }
                     //假如说，这个字段是应该是String 那无论怎样都给他塞String类型的值！防止出現有些字段應該是String卻解析出來示number
                     if(fields[i].getGenericType().toString().contains("java.lang.String")){
-                        fields[i].set(obj,convertCellValueToString(cell).toString());
+                        Object cellValue =  convertCellValueToString(cell);
+                        if(cellValue == null){
+                            continue;
+                        }
+                        fields[i].set(obj,cellValue.toString());
                         continue;
                     }
                     fields[i].set(obj,convertCellValueToString(cell));

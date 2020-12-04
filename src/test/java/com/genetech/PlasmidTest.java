@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -88,7 +89,7 @@ public class PlasmidTest {
 
     //更新质粒
     @Test
-    public void updatePlasmids(){
+    public void updatePlasmids() throws IllegalAccessException {
         //读取excel文件----是需要修改的文件们
         ExcelReaderUtil<PlasmidInfo> excelReaderUtil = new ExcelReaderUtil<>();
 
@@ -101,10 +102,13 @@ public class PlasmidTest {
             criteria.andPlasmid_identificationEqualTo(source.getPlasmid_identification());
             List<PlasmidInfo> list = plasmidInfoMapper.selectByExample(plasmidInfoExample);
             if(!CollectionUtils.isEmpty(list)){
-                PlasmidInfo target = plasmidInfoMapper.selectByExample(plasmidInfoExample).get(0);
+                PlasmidInfo target = list.get(0);
                 Integer id = target.getId();
                 source.setAtt_urls(target.getAtt_urls());
                 source.setPlasmid_sequence(target.getPlasmid_sequence());
+
+                copyNotNullFieldToTargetField(source,target);
+
                 BeanUtils.copyProperties(source,target);
                 target.setId(id);
                 //cellInfo.setAdd_time(new Date());
@@ -193,7 +197,6 @@ public class PlasmidTest {
                         plasmidInfo.setPlasmid_sequence(sequenceUrls+","+(sequeceFolderName+fileNameListForSequence.get(j)));
                         plasmidInfoMapper.updateByPrimaryKey(plasmidInfo);
                     }
-
                 }
             }
         }
@@ -208,4 +211,23 @@ public class PlasmidTest {
         return identifiers;
     }
 
+    /**
+     * 这个方法是为了将excel中非空的内容copy到目标对象中
+     * source是excel里面的内容
+     * @param source
+     * @param target
+     */
+    private void copyNotNullFieldToTargetField(PlasmidInfo source,PlasmidInfo target) throws IllegalAccessException {
+        Field[] sourceClassFields = source.getClass().getDeclaredFields();
+        Field[] targetClassFields = target.getClass().getDeclaredFields();
+        for (Field field:sourceClassFields) {
+            for (int i = 0; i < targetClassFields.length; i++) {
+                if(targetClassFields[i].getName().equals(field.getName())){
+                    if(field.get(source)!=null && !"".equals(field.get(source))){
+                        targetClassFields[i].set(target,field.get(source));
+                    }
+                }
+            }
+        }
+    }
 }
