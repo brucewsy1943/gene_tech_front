@@ -42,10 +42,10 @@ public class PlasmidTest {
     @Autowired
     private GoodsService goodsService;
 
-    private final static String filepath = "D:/work/质粒平台/数据库/2020-10-27/20201027-数据上传-修改.xlsx";//每次记得修改一下日期就行
+    private final static String filepath = "D:/work/质粒平台/数据库/2020-12-14/20201214-数据上传-修改.xlsx";//每次记得修改一下日期就行
 
     private final static String atalasDirPath = "D:/uploadFile/plasmid/files/atlas";
-    private final static String sequeceDirPath = "D:/uploadFile/plasmid/files/sequence";
+    private final static String sequeceDirPath = "D:/uploadFile/plasmid/files/sequence/2020-12-8";
     //private final static String sequeceDirPath = "\\\\192.168.1.251/rdcc/Public Data/CCRB-质粒库/5-数据库/测序上传/20200918";
     //private static String picDirPath = "D:/uploadFile/plasmid/images";
     private final static String atlasFolderName = "files/atlas/";
@@ -97,12 +97,16 @@ public class PlasmidTest {
 
         for (int i = 0; i < targetList.size(); i++) {
             PlasmidInfo source = targetList.get(i);
+            if(source.getPlasmid_identification() == null || "".equals(source.getGene_identification())){
+                continue;
+            }
             PlasmidInfoExample plasmidInfoExample = new PlasmidInfoExample();
             PlasmidInfoExample.Criteria criteria = plasmidInfoExample.createCriteria();
             criteria.andPlasmid_identificationEqualTo(source.getPlasmid_identification());
             List<PlasmidInfo> list = plasmidInfoMapper.selectByExample(plasmidInfoExample);
             if(!CollectionUtils.isEmpty(list)){
                 PlasmidInfo target = list.get(0);
+
                 Integer id = target.getId();
                 source.setAtt_urls(target.getAtt_urls());
                 source.setPlasmid_sequence(target.getPlasmid_sequence());
@@ -220,11 +224,13 @@ public class PlasmidTest {
     private void copyNotNullFieldToTargetField(PlasmidInfo source,PlasmidInfo target) throws IllegalAccessException {
         Field[] sourceClassFields = source.getClass().getDeclaredFields();
         Field[] targetClassFields = target.getClass().getDeclaredFields();
-        for (Field field:sourceClassFields) {
+        for (int j = 0; j < sourceClassFields.length; j++) {
+            sourceClassFields[j].setAccessible(true);
             for (int i = 0; i < targetClassFields.length; i++) {
-                if(targetClassFields[i].getName().equals(field.getName())){
-                    if(field.get(source)!=null && !"".equals(field.get(source))){
-                        targetClassFields[i].set(target,field.get(source));
+                if(targetClassFields[i].getName().equals(sourceClassFields[j].getName())){
+                    if(sourceClassFields[j].get(source)!=null && !"".equals(sourceClassFields[j].get(source))){
+                        targetClassFields[i].setAccessible(true);
+                        targetClassFields[i].set(target,sourceClassFields[j].get(source));
                     }
                 }
             }
