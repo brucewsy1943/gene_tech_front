@@ -1153,7 +1153,7 @@
 
   <select id="searchPlasmidInfos" parameterType="com.genetech.bean.dto.PlasmidInfoDto" resultMap="ResultMapWithBLOBs">
     select
-    pi.id as id, plasmid_identification, plasmid_name, gene_name, gene_species,vector_type, gene_mutation,growth_bacterial_resistance
+    pi.id as id, plasmid_identification, plasmid_name, gene_name, gene_species,vector_type,vector_type_2,vector_type_3,vector_type_4, gene_mutation,growth_bacterial_resistance
     from t_plasmid_info pi LEFT JOIN t_goods g ON pi.id = g.product_id
     WHERE g.status = 1
 

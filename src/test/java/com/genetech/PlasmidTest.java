@@ -93,17 +93,17 @@ public class PlasmidTest {
         //读取excel文件----是需要修改的文件们
         ExcelReaderUtil<PlasmidInfo> excelReaderUtil = new ExcelReaderUtil<>();
 
-        List<PlasmidInfo> targetList = excelReaderUtil.readExcel(filepath,PlasmidInfo.class);
+        List<PlasmidInfo> sourceList = excelReaderUtil.readExcel(filepath,PlasmidInfo.class);
 
-        for (int i = 0; i < targetList.size(); i++) {
-            PlasmidInfo source = targetList.get(i);
+        for (int i = 0; i < sourceList.size(); i++) {
+            PlasmidInfo source = sourceList.get(i);
             if(source.getPlasmid_identification() == null || "".equals(source.getGene_identification())){
                 continue;
             }
             PlasmidInfoExample plasmidInfoExample = new PlasmidInfoExample();
             PlasmidInfoExample.Criteria criteria = plasmidInfoExample.createCriteria();
             criteria.andPlasmid_identificationEqualTo(source.getPlasmid_identification());
-            List<PlasmidInfo> list = plasmidInfoMapper.selectByExample(plasmidInfoExample);
+            List<PlasmidInfo> list = plasmidInfoMapper.selectByExampleWithBLOBs(plasmidInfoExample);
             if(!CollectionUtils.isEmpty(list)){
                 PlasmidInfo target = list.get(0);
 
@@ -112,8 +112,7 @@ public class PlasmidTest {
                 source.setPlasmid_sequence(target.getPlasmid_sequence());
 
                 copyNotNullFieldToTargetField(source,target);
-
-                BeanUtils.copyProperties(source,target);
+                //BeanUtils.copyProperties(source,target);
                 target.setId(id);
                 //cellInfo.setAdd_time(new Date());
                 plasmidInfoMapper.updateByPrimaryKeyWithBLOBs(target);
@@ -228,6 +227,7 @@ public class PlasmidTest {
             sourceClassFields[j].setAccessible(true);
             for (int i = 0; i < targetClassFields.length; i++) {
                 if(targetClassFields[i].getName().equals(sourceClassFields[j].getName())){
+                    Object sourceFieldValue = sourceClassFields[j].get(source);
                     if(sourceClassFields[j].get(source)!=null && !"".equals(sourceClassFields[j].get(source))){
                         targetClassFields[i].setAccessible(true);
                         targetClassFields[i].set(target,sourceClassFields[j].get(source));
